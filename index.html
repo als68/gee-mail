@@ -1,18 +1,107 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+        <script src="js/mail-generator.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/style.css" media="screen">
+        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat">
         
-      };
-    </script>
+        <script>
+        window.onload = function(){
+            // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+            // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+
+            var table = document.getElementById("tableEmails");
+            function inboxLoad (geemail, index) {
+                var emailTable = document.getElementById("tableEmails");
+                
+                var newRow = document.createElement("tr");
+                newRow.className = ("row");
+                
+                newRow.onclick = function(){
+                    var emailBody = document.getElementById("newRowSpace" + index);
+                    if (emailBody.style.display === "none"){
+                        emailBody.style.display = "table-row";
+                    } else {
+                        emailBody.style.display = "none";
+                    }
+                };
+                emailTable.appendChild(newRow);
+
+                var emailSender = document.createElement("td");
+                emailSender.className = ("sender");
+                emailSender.innerHTML = geemail.sender;
+                newRow.appendChild(emailSender);
+                var emailSubject = document.createElement("td");
+                emailSubject.className = ("subject");
+                emailSubject.innerHTML = geemail.subject;
+                newRow.appendChild(emailSubject);
+                var emailDate = document.createElement("td");
+                emailDate.className = ("date");
+                emailDate.innerHTML = geemail.date;
+                newRow.appendChild(emailDate);
+
+                var emailBody = document.createElement("tr");
+                emailBody.id = "newRowSpace" + index;
+                emailBody.style.display = "none";
+                emailTable.appendChild(emailBody);
+                
+                var bodySpace = document.createElement("td");
+                bodySpace.colSpan = 3;
+                bodySpace.className = ("body");
+                bodySpace.innerHTML = geemail.body;
+                emailBody.appendChild(bodySpace);
+                
+                var msgCount = document.getElementById("inboxCountTop");
+                msgCount.innerHTML = "Gmb (" + window.geemails.length + ")";
+                var msgCountTwo = document.getElementById("inboxCountPage");
+                msgCountTwo.innerHTML = "Inbox (" + window.geemails.length + ")";
+            }
+            
+            function fetchMail(){
+                var incomingMessages = getNewMessage();
+                window.geemails.push(incomingMessages);
+                inboxLoad(incomingMessages, window.geemails.length);
+            }
+            for (var i = 0; i < window.geemails.length; i++) {
+                inboxLoad(window.geemails[i], i + 1);
+            };
+            
+            setInterval(fetchMail, 10000);
+        };
+        </script>
+        
+        <title id="inboxCountTop"></title>
 	</head>
+
 	<body>
-		<div class="container" id="main">
-			Build Me!
+        <div class="topHeader">
+            <table>
+                <tr>
+                    <td>
+                        <div id="titleText">Gee-mail beta</div>
+                    </td>
+                    <td>
+                        <div id="inboxCountPage"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <p><strong>Welcome!</strong>  Click rows to expand/hide your messages.</p>
+        
+		<div class="container" id="main">		
+		<table class="tableClass">
+			<thead>
+				<tr>
+					<th>Sender</th>
+					<th>Subject</th>
+                    <th>Date</th>
+				</tr>
+			</thead>
+			<tbody id="tableEmails"></tbody>
+        </table>
 		</div>
+        
+		<p id="footertext">v0.1</p>
 	</body>
 </html>

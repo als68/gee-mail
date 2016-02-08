@@ -1,0 +1,65 @@
+/*ALS gee-mail stylesheet*/
+
+*{
+	font-family:Montserrat,Arial;
+    font-size:12px;
+}
+
+.topHeader{
+	background-color:#00008b;
+    color:#ffffff;
+	margin:0 0 0 0;
+	height:35px;
+	width:100%;
+	position:fixed;
+	top:0px;
+	right:0px;
+	left:0px;
+}
+
+#titleText{
+    font-size:25px;
+	color:#ffffff;
+}
+
+body{
+	position:relative;
+	top:35px;
+}
+
+.tableClass {
+    margin:auto;
+	width:70%;
+	background-color:#f0f0f0;
+    padding:0px;
+    border-spacing:3px;
+    border-collapse:separate;
+}
+
+.tableClass th {
+	font-size:15px;
+}
+
+.tableClass th:first-child {
+	width:15%;
+}
+
+.tableClass th:nth-child(2) {
+	width:35%;
+}
+
+.tableClass th:nth-child(3) {
+	width:50%;
+}
+
+.tableClass td {
+	vertical-align:text-top;
+	background-color:#f7f7f7;
+}
+
+#footertext{
+	background-color:#00008b;
+	font-size:10px;
+	color:#ffffff;
+    text-align:center;
+}
